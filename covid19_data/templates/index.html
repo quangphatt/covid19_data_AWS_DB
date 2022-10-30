@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Covid 19 Data</title>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>COVID 19 DATA</h1>
+  <form method="POST">
+    {% csrf_token %}
+    Choose a date:
+    {{form.date_picked}}
+    <button type="submit" name="date_picked">Pick Date</button>
+  </form>
+  <br>
+
+  {% if covid19Data.all %}
+  <p>Date: {{date}}</p>
+  <table>
+    <tr>
+      <th>FIPS</th>
+      <th>Admin</th>
+      <th>Province_State</th>
+      <th>Country_Region</th>
+      <th>Last_Update</th>
+      <th>Lat</th>
+      <th>Long_</th>
+      <th>Confirmed</th>
+      <th>Deaths</th>
+      <th>Recovered</th>
+      <th>Active</th>
+      <th>Combined_Key</th>
+      <th>Incident_Rate</th>
+      <th>Case_Fatality_Ratio</th>
+    </tr>
+
+    {% for item in covid19Data.all %}
+    <tr>
+      <td>{{item.FIPS}}</td>
+      <td>{{item.Admin}}</td>
+      <td>{{item.Province_State}}</td>
+      <td>{{item.Country_Region}}</td>
+      <td>{{item.Last_Update}}</td>
+      <td>{{item.Lat}}</td>
+      <td>{{item.Long}}</td>
+      <td>{{item.Confirmed}}</td>
+      <td>{{item.Deaths}}</td>
+      <td>{{item.Recovered}}</td>
+      <td>{{item.Active}}</td>
+      <td>{{item.Combined_Key}}</td>
+      <td>{{item.Incident_Rate}}</td>
+      <td>{{item.Case_Fatality_Ratio}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h3>Please pick a date before today to view data!</h3>
+  {% endif %}
+</body>
+
+</html>
